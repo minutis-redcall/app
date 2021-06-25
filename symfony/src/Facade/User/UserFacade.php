@@ -3,6 +3,8 @@
 namespace App\Facade\User;
 
 use App\Facade\Generic\ResourceFacade;
+use App\Facade\Resource\StructureResourceFacade;
+use App\Facade\Resource\VolunteerResourceFacade;
 use Bundles\ApiBundle\Annotation as Api;
 use Bundles\ApiBundle\Contracts\FacadeInterface;
 
@@ -66,14 +68,14 @@ class UserFacade implements FacadeInterface
      * A user is a resource that only helps in the authentication and authorization process. In order to create
      * triggers, a user should be bound to its volunteer, containing all its context at the Red Cross.
      *
-     * @var ResourceFacade
+     * @var VolunteerResourceFacade
      */
     protected $volunteer = null;
 
     /**
      * Structures that a user can trigger, by default the same of its tied volunteer.
      *
-     * @var ResourceFacade[]
+     * @var StructureResourceFacade[]
      */
     protected $structures = [];
 
@@ -89,8 +91,7 @@ class UserFacade implements FacadeInterface
         $facade->setRoot(false);
         $facade->setLocked(false);
 
-        $volunteer = new ResourceFacade();
-        $volunteer->setType(ResourceFacade::TYPE_VOLUNTEER);
+        $volunteer = new VolunteerResourceFacade();
         $volunteer->setLabel('John Doe');
         $volunteer->setExternalId('demo-volunteer');
         $facade->setVolunteer($volunteer);
@@ -197,12 +198,12 @@ class UserFacade implements FacadeInterface
         return $this;
     }
 
-    public function getVolunteer() : ?ResourceFacade
+    public function getVolunteer() : ?VolunteerResourceFacade
     {
         return $this->volunteer;
     }
 
-    public function setVolunteer(?ResourceFacade $volunteer) : UserFacade
+    public function setVolunteer(?VolunteerResourceFacade $volunteer) : UserFacade
     {
         $this->volunteer = $volunteer;
 

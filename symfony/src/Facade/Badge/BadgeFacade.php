@@ -16,7 +16,7 @@ class BadgeFacade implements FacadeInterface
      * @Assert\NotBlank(groups={"create"})
      * @Assert\Length(max = 64)
      *
-     * @var string
+     * @var string|null
      */
     protected $externalId;
 
@@ -28,7 +28,7 @@ class BadgeFacade implements FacadeInterface
      * @Assert\NotBlank(groups={"create"})
      * @Assert\Length(max = 64)
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
 
