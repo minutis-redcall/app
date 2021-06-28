@@ -68,11 +68,17 @@
 
         {% for category in category_collection.categories %}
             <div class="h4">{{ category.name }}</div>
+            <p>{{ category.title }}</p>
+            {% if category.description %}
+                <p>{{ category.description }}</p>
+            {% endif %}
+            <br/>
             {% for endpoint in category.endpoints.endpoints %}
                 <div style="margin-left:15px;">
                     <a href="{{ path('developer_token_endpoint', {token: token, categoryId: category.id, endpointId: endpoint.id}) }}">{{ endpoint.title }}</a>
                 </div>
             {% endfor %}
+            <hr/>
         {% endfor %}
 
         <br/><br/><br/>

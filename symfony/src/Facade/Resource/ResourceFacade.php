@@ -14,8 +14,9 @@ abstract class ResourceFacade implements FacadeInterface
     const TYPE_USER      = 'user';
 
     /**
-     * Resource type ({VOLUNTEER}, {STRUCTURE}, {BADGE}, {CATEGORY})
+     * Resource type ({USER}, {VOLUNTEER}, {STRUCTURE}, {BADGE}, {CATEGORY})
      *
+     * @Api\Placeholder("{USER}", replaceBy=ResourceFacade::TYPE_USER)
      * @Api\Placeholder("{VOLUNTEER}", replaceBy=ResourceFacade::TYPE_VOLUNTEER)
      * @Api\Placeholder("{STRUCTURE}", replaceBy=ResourceFacade::TYPE_STRUCTURE)
      * @Api\Placeholder("{BADGE}", replaceBy=ResourceFacade::TYPE_BADGE)

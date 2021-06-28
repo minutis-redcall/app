@@ -64,21 +64,6 @@ class UserFacade implements FacadeInterface
      */
     protected $locked = false;
 
-    /**
-     * A user is a resource that only helps in the authentication and authorization process. In order to create
-     * triggers, a user should be bound to its volunteer, containing all its context at the Red Cross.
-     *
-     * @var VolunteerResourceFacade
-     */
-    protected $volunteer = null;
-
-    /**
-     * Structures that a user can trigger, by default the same of its tied volunteer.
-     *
-     * @var StructureResourceFacade[]
-     */
-    protected $structures = [];
-
     static public function getExample(Api\Facade $decorates = null) : FacadeInterface
     {
         $facade = new self;
@@ -90,26 +75,6 @@ class UserFacade implements FacadeInterface
         $facade->setAdministrator(false);
         $facade->setRoot(false);
         $facade->setLocked(false);
-
-        $volunteer = new VolunteerResourceFacade();
-        $volunteer->setLabel('John Doe');
-        $volunteer->setExternalId('demo-volunteer');
-        $facade->setVolunteer($volunteer);
-
-        $structureA = new ResourceFacade();
-        $structureA->setType(ResourceFacade::TYPE_STRUCTURE);
-        $structureA->setLabel('UNITE LOCALE DE PARIS 1ER');
-        $structureA->setExternalId('demo-structure-1');
-
-        $structureB = new ResourceFacade();
-        $structureB->setType(ResourceFacade::TYPE_STRUCTURE);
-        $structureB->setLabel('UNITE LOCALE DE PARIS 2EME');
-        $structureB->setExternalId('demo-structure-1');
-
-        $facade->setStructures([
-            $structureA,
-            $structureB,
-        ]);
 
         return $facade;
     }
@@ -194,30 +159,6 @@ class UserFacade implements FacadeInterface
     public function setLocked(bool $locked) : UserFacade
     {
         $this->locked = $locked;
-
-        return $this;
-    }
-
-    public function getVolunteer() : ?VolunteerResourceFacade
-    {
-        return $this->volunteer;
-    }
-
-    public function setVolunteer(?VolunteerResourceFacade $volunteer) : UserFacade
-    {
-        $this->volunteer = $volunteer;
-
-        return $this;
-    }
-
-    public function getStructures() : array
-    {
-        return $this->structures;
-    }
-
-    public function setStructures(array $structures) : UserFacade
-    {
-        $this->structures = $structures;
 
         return $this;
     }

@@ -4,8 +4,9 @@ namespace App\Transformer;
 
 use App\Entity\Structure;
 use App\Entity\User;
-use App\Facade\Generic\ResourceFacade;
-use App\Facade\User\UserFacade;
+use App\Facade\Resource\StructureResourceFacade;
+use App\Facade\Resource\VolunteerResourceFacade;
+use App\Facade\User\UserReadFacade;
 use Bundles\ApiBundle\Base\BaseTransformer;
 use Bundles\ApiBundle\Contracts\FacadeInterface;
 
@@ -14,7 +15,7 @@ class UserTransformer extends BaseTransformer
     /**
      * @param User $object
      *
-     * @return UserFacade
+     * @return UserReadFacade
      */
     public function expose($object) : ?FacadeInterface
     {
@@ -22,7 +23,7 @@ class UserTransformer extends BaseTransformer
             return null;
         }
 
-        $facade = new UserFacade();
+        $facade = new UserReadFacade();
 
         $facade->setIdentifier($object->getUserIdentifier());
         $facade->setVerified($object->isVerified());
@@ -32,8 +33,7 @@ class UserTransformer extends BaseTransformer
         $facade->setRoot($object->isRoot());
 
         if ($object->getVolunteer()) {
-            $resource = new ResourceFacade();
-            $resource->setType(ResourceFacade::TYPE_VOLUNTEER);
+            $resource = new VolunteerResourceFacade();
             $resource->setExternalId($object->getVolunteer()->getExternalId());
             $resource->setLabel($object->getVolunteer()->getDisplayName());
             $facade->setVolunteer($resource);
@@ -42,8 +42,7 @@ class UserTransformer extends BaseTransformer
         $structures = [];
         foreach ($object->getStructures() as $structure) {
             /** @var Structure $structure */
-            $resource = new ResourceFacade();
-            $resource->setType(ResourceFacade::TYPE_STRUCTURE);
+            $resource = new StructureResourceFacade();
             $resource->setExternalId($structure->getExternalId());
             $resource->setLabel($structure->getDisplayName());
             $structures[] = $resource;

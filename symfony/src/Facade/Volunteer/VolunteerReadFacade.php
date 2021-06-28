@@ -8,6 +8,7 @@ use App\Facade\Resource\BadgeResourceFacade;
 use App\Facade\Resource\StructureResourceFacade;
 use App\Facade\Resource\UserResourceFacade;
 use App\Facade\User\UserFacade;
+use App\Facade\User\UserReadFacade;
 use Bundles\ApiBundle\Annotation\Facade;
 use Bundles\ApiBundle\Contracts\FacadeInterface;
 use Bundles\ApiBundle\Model\Facade\CollectionFacade;
@@ -38,7 +39,7 @@ class VolunteerReadFacade extends VolunteerFacade
     /**
      * A RedCall user resource if the volunteer can trigger people.
      *
-     * @var UserFacade|null
+     * @var UserResourceFacade|null
      */
     protected $user;
 
